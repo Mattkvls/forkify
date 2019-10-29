@@ -1,7 +1,7 @@
 const path=require('path'); //imports the path package 
 const HtmlWebpackPlugin=require('html-webpack-plugin');
 module.exports={
-    entry: './src/js/index.js',
+    entry: ['babel-polyfill','./src/js/index.js'],
 
     
     output:{
@@ -16,5 +16,18 @@ module.exports={
             filename: 'index.html',// we pass options with an object 
             template: './src/index.html', //the source file 
         })
-    ]
+    ],
+    //use babel
+    module:{
+        rules:[
+            {
+                //for each of the loaders we need 
+                test: /\.js$/,//regular expression tests for files that end at .js
+                exclude:/node_modules/,
+                use:{
+                    loader:'babel-loader' //then apply the babel-loader
+                }
+            }
+        ]//all the loaders we need for each loader an object 
+    }
 };
