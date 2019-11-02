@@ -4,12 +4,12 @@ import axios from 'axios';
 //recipe requests : https://www.food2fork.com/api/get
 
 //describe the data model for the search with Classes
-//the data is query and search results
+//the data is : query and search results
 export default class Search{
     constructor(query){
         this.query=query;
     }
-    //method that gets results for the search query
+    // async method that gets results for the search query axios http request
     async getResults(){
         try{
             const proxy=`https://cors-anywhere.herokuapp.com/`; //if there is a need for proxy prepend a ${proxy} to the axios link
