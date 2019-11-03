@@ -10,12 +10,27 @@ export const elements={
     searchResultList:document.querySelector('.results__list'),
 
     //selects the parent element of the left list for the loader spinner 
-    searchRes:document.querySelector('.results')
+    searchRes:document.querySelector('.results'),
+
+    //selects the point we will insert the pagination
+    searchResPages:document.querySelector('.results__pages')
 }
+
+
+
+
+
+
+
+
 
 export const elementStrings={
     loader:'loader'
 };
+
+
+
+
 
 //create the AJAX LOADER SPINNER 
 export const renderLoader=parent=>{
@@ -29,6 +44,9 @@ export const renderLoader=parent=>{
     //we attach it to the parent
     parent.insertAdjacentHTML('afterbegin',loader);
 }
+
+
+
 
 //clear the loader after the results displayed 
 export const clearLoader=()=>{
