@@ -46,5 +46,19 @@ controlSearch();//will be called when the form is submitted
 })
 
 
+//add eventListeners to the elemet that is present when the page loads for fisrst time 
+elements.searchResPages.addEventListener('click',e=>{
+    const btn=e.target.closest('.btn-inline'); //solves the delegation e.target problem. we still click other things like icons, text but we get the closest button with the class we set up.(finds the closest element with the class we gave it )
+    if(btn){
+        //read the data from the data attribute 
+        const goToPage=parseInt(btn.dataset.goto,10);// GIVE US THE NUMBER OF THE PAGE
 
+        //clear results
+        searchView.clearResults();
+
+        //
+        searchView.renderResults(state.search.result,goToPage);
+        console.log(goToPage);
+    }
+})
 

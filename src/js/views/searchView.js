@@ -7,6 +7,9 @@ export const getInput=()=>elements.searchInput.value
 
 export const clearResults=()=>{
     elements.searchResultList.innerHTML=''; //remove the HTML CLEARS RESULT LIst
+
+    //clear buttons remove the previous buttons 
+    elements.searchResPages.innerHTML='';
 };
 
 export const clearInput=()=>{
@@ -58,10 +61,10 @@ const renderRecipe= recipe=>{//we create the logic for displaying one result sep
 //create the markup for the buttons. TYpe: prev or next
 const createButton=(page,type)=>`
     <button class="btn-inline results__btn--${type}" data-goto=${type==='prev'?page-1:page+1}>
+        <span>Page ${type==='prev'?page-1:page+1}</span>
         <svg class="search__icon">
             <use href="img/icons.svg#icon-triangle-${type==='prev'?'left':'right'}"></use>
         </svg>
-        <span>Page ${type==='prev'?page-1:page+1}</span>
     </button>
 `;
 
