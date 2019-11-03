@@ -24,11 +24,11 @@ const limitRecipeTitle=(title,limit=17)=>{
             if(acc+cur.length<=limit){
                 newTitle.push(cur);
             }
-            return acc+cur.length;
+            return acc+cur.length; //is the new acc. reduce works like this we have to return the new value of acc for each itteration.
         }, 0);
 
         //return the result 
-        return `${newTitle.join(' ')}`;
+        return `${newTitle.join(' ')}...`;
     }
     return title;
 }
@@ -44,7 +44,7 @@ const renderRecipe= recipe=>{//we create the logic for displaying one result sep
                 <img src="${recipe.image_url}" alt="${recipe.title}">
             </figure>
             <div class="results__data">
-                <h4 class="results__name">${limitRecipeTitle(recipe.title)}...</h4>
+                <h4 class="results__name">${limitRecipeTitle(recipe.title)}</h4>
                 <p class="results__author">${recipe.publisher}</p>
             </div>
         </a>
