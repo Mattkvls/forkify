@@ -32,8 +32,10 @@ const controlSearch= async ()=>{
         //display the loader spinner
         renderLoader(elements.searchRes);
 
+
+        try{
         //4) search for recipes. We use the method from the Search models
-       await state.search.getResults();//returns a promise
+         await state.search.getResults();//returns a promise
 
         // 5) render results (display the results )in UI (THIS ONLY TO HAPPEN AFTER WE RECEIVE RESULTS FROM API )
 
@@ -41,6 +43,12 @@ const controlSearch= async ()=>{
         clearLoader();
 
         searchView.renderResults(state.search.result);
+
+        }catch(error){
+            console.log(error);
+            clearLoader();
+
+        }
     }
 }
 
@@ -72,7 +80,35 @@ elements.searchResPages.addEventListener('click',e=>{
 //==================================================================================
 //++++++++++++++++++++RECIPE CONTROLLER ++++++++++++++++++++++++++++++++++++++++++++
 //==================================================================================
+const controlRecipe= async()=>{
+    //get the hash from the url (is the id )
+    const id=window.location.hash.replace('#', ''); //we remove the # symbol
+    console.log(id);
 
-//create a new recipe from the class 
-const r= new Recipe(47746);
-r.getRecipe();
+    if(id){
+
+        //prepare the UI for changes
+
+        //Create new recipe object 
+        state.recipe=new Recipe(id);//save it to the state 
+        try{
+            //Get the recipe data
+             await state.recipe.getRecipe();
+
+            //call the methods calculate servings and time 
+            state.recipe.calcTime();
+            state.recipe.calcServings();
+
+            //render the recipe to the UI
+            console.log(state.recipe);
+        }catch(error){
+            console.log(error)
+        }
+        
+    }
+}
+
+
+//add an event listener to the global object (browser )
+//every time we change the hash the controlRecipe is called 
+['haschange','load'].forEach(event=>window.addEventListener(event, controlRecipe));
