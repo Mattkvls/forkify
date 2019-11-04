@@ -1,5 +1,6 @@
 // Global app controller
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
 import {elements, renderLoader,clearLoader} from './views/base';
 
@@ -11,6 +12,10 @@ import {elements, renderLoader,clearLoader} from './views/base';
 */
 const state={}; //each time we reload the app the state will be empty
 
+
+//==================================================================================
+//++++++++++++++++++++SEARCH CONTROLLER ++++++++++++++++++++++++++++++++++++++++++++
+//==================================================================================
 //create a function to put the logic and call it inside the eventlistener. This will control the search 
 const controlSearch= async ()=>{
     //1)get query from the view . This(is job of the View make a function there call it here)
@@ -62,3 +67,12 @@ elements.searchResPages.addEventListener('click',e=>{
     }
 })
 
+
+
+//==================================================================================
+//++++++++++++++++++++RECIPE CONTROLLER ++++++++++++++++++++++++++++++++++++++++++++
+//==================================================================================
+
+//create a new recipe from the class 
+const r= new Recipe(47746);
+r.getRecipe();
