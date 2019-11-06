@@ -13,7 +13,10 @@ export const elements={
     searchRes:document.querySelector('.results'),
 
     //selects the point we will insert the pagination
-    searchResPages:document.querySelector('.results__pages')
+    searchResPages:document.querySelector('.results__pages'),
+
+    //selects the point we will insert the results 
+    recipe:document.querySelector('.recipe')
 }
 
 

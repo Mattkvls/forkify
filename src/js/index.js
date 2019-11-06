@@ -2,6 +2,7 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import {elements, renderLoader,clearLoader} from './views/base';
 
 /*Global state of the app
@@ -86,8 +87,11 @@ const controlRecipe= async()=>{
     console.log(id);
 
     if(id){
-
         //prepare the UI for changes
+        recipeView.clearRecipe();
+        //show the loader spinner pass the parent el (where the spinner will appear )
+        renderLoader(elements.recipe);
+
 
         //Create new recipe object 
         state.recipe=new Recipe(id);//save it to the state 
@@ -95,20 +99,28 @@ const controlRecipe= async()=>{
             //Get the recipe data and parse ingredients
              await state.recipe.getRecipe();
             state.recipe.parseIngredients();
+
             //call the methods calculate servings and time 
             state.recipe.calcTime();
             state.recipe.calcServings();
 
+            //first clear the loader then render the recipe
+            clearLoader();
+
             //render the recipe to the UI
-            console.log(state.recipe);
+            recipeView.renderRecipe(state.recipe);
         }catch(error){
-            console.log(error)
+            alert(error);
+            console.log(error);
+            console.log(`${state.recipe[ingredients]}`);
         }
-        
+    
     }
 }
 
 
 //add an event listener to the global object (browser )
 //every time we change the hash the controlRecipe is called 
-['haschange','load'].forEach(event=>window.addEventListener(event, controlRecipe));
+['hashchange','load'].forEach(event=>{
+    window.addEventListener(event,controlRecipe);
+});

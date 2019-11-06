@@ -19,8 +19,9 @@ export default class Recipe{
             this.img=res.data.recipe.image_url;
             this.url=res.data.recipe.source_url;
             this.ingredients=res.data.recipe.ingredients;
+
         }catch(error){
-            console.log(error)
+            console.log(error);
         }
     }
     //assuming that we need 15 min for each 3 ingredients 
@@ -37,9 +38,10 @@ export default class Recipe{
 
     parseIngredients(){
 
-        //create two arrays in one ingredients aw they appear / other as we want them to appear
+        //create two arrays with the units of the ingredients as they appear from the server / other as we want them to appear
         const unitsLong=['tablespoons','tablespoon','ounces','ounce','teaspoons','teaspoon','cups','pounds'];
         const unitsShort=['tbsp','tbsp','oz','oz','tsp','cup','pound'];
+        const units=[...unitsShort,'kg','g'];
 
         //create a new array with the new ingredients based on the old ones
         const newIngredients=this.ingredients.map(el=>{
@@ -58,7 +60,7 @@ export default class Recipe{
             const arrIng= ingredient.split(' '); //wherever we have a space will be split and each word will become element to the array
 
             //find where the unit is located. (find the position of the unit BUT we dont know what the unit is..). will return the index of the position the test is true 
-            const unitIndex= arrIng.findIndex(el2=>unitsShort.includes(el2)); //returns true if the elemet exists in the array and false if tis not. will check the elements of the array 
+            const unitIndex= arrIng.findIndex(el2=>units.includes(el2)); //returns true if the elemet exists in the array and false if tis not. will check the elements of the array 
             
             let objIng;
             if(unitIndex>-1){
@@ -76,7 +78,6 @@ export default class Recipe{
                    //in case we have 4 1/2 
                     //we will join those string [4, 1/2] 
                     count=eval(arrIng.slice(0,unitIndex).join('+')); //will make a string "4+1/2" then the eval will make it a number 4.5
-
                     objIng={
                         count: count,
                         unit: arrIng[unitIndex],
@@ -98,11 +99,7 @@ export default class Recipe{
                     ingredient:ingredient
                 }
             }
-
-
-
-
-        return objIng;
+        return objIng;//ingredients is an array of objects 
         });
         this.ingredients=newIngredients;
     }
