@@ -112,7 +112,7 @@ const controlRecipe= async()=>{
         }catch(error){
             alert(error);
             console.log(error);
-            console.log(`${state.recipe[ingredients]}`);
+            console.log(`${state.recipe.ingredients}`);
         }
     
     }

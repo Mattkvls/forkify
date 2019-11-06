@@ -73,17 +73,17 @@ export default class Recipe{
                 //EX 4 CUPS, ARRCOUNT IS [4]
                 let count;
                 if(arrCount.length===1){
-                    count=arrIng[0].replace('-','+');
+                    count=eval(arrIng[0].replace('-','+'));
                 }else{
                    //in case we have 4 1/2 
                     //we will join those string [4, 1/2] 
                     count=eval(arrIng.slice(0,unitIndex).join('+')); //will make a string "4+1/2" then the eval will make it a number 4.5
+                }
                     objIng={
                         count: count,
                         unit: arrIng[unitIndex],
                         ingredient: arrIng.slice(unitIndex+1).join(' ')
                     }
-                }
             }else if(parseInt(arrIng[0],10)){
                 //there is no unit, but 1st element is a number
                 objIng={
